@@ -1,0 +1,11 @@
+const router = require('express').Router();
+router.use('/auth', require('./auth.routes'));
+router.use('/profile', require('./profile.routes'));
+router.use('/expertise', require('./expertise.routes'));
+router.use('/skills', require('./skill.routes'));
+router.use('/highlights', require('./highlight.routes'));
+router.use('/education', require('./education.routes'));
+router.use('/projects', require('./project.routes'));
+router.use('/messages', require('./message.routes'));
+router.use('/upload', require('./upload.routes'));
+module.exports = router;

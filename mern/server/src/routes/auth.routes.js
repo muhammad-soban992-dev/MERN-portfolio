@@ -1,0 +1,10 @@
+const router = require('express').Router();
+const validate = require('../middleware/validate');
+const { authLimiter } = require('../middleware/rateLimit');
+const { loginSchema } = require('../validators');
+const { login, logout, me } = require('../controllers/auth.controller');
+const { verifyToken, requireAdmin } = require('../middleware/auth');
+router.post('/login', authLimiter, validate(loginSchema), login);
+router.post('/logout', logout);
+router.get('/me', verifyToken, requireAdmin, me);
+module.exports = router;

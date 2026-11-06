@@ -1,0 +1,11 @@
+const router = require('express').Router();
+const validate = require('../middleware/validate');
+const { messageLimiter } = require('../middleware/rateLimit');
+const { messageSchema, messageStatusSchema, idParam } = require('../validators');
+const { createMessage, listMessages, updateMessage, deleteMessage } = require('../controllers/message.controller');
+const { verifyToken, requireAdmin } = require('../middleware/auth');
+router.post('/', messageLimiter, validate(messageSchema), createMessage);
+router.get('/', verifyToken, requireAdmin, listMessages);
+router.patch('/:id', verifyToken, requireAdmin, validate(idParam, 'params'), validate(messageStatusSchema), updateMessage);
+router.delete('/:id', verifyToken, requireAdmin, validate(idParam, 'params'), deleteMessage);
+module.exports = router;
